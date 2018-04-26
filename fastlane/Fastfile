@@ -1,3 +1,7 @@
-lane :test do
-  match_credentials
+lane :get_credential do
+  print(match_credentials)
+end
+
+lane :set_credential do
+  match_credentials_set
 end
