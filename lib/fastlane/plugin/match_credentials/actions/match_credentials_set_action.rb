@@ -6,7 +6,7 @@ module Fastlane
   module Actions
     class MatchCredentialsSetAction < Action
       def self.run(params)
-        Helper::MatchCredentialsHelper.runWithRepo(params) { |params, repo|
+        Helper::MatchCredentialsHelper.runWithRepo(params) do |params, repo|
           key = params.fetch(:key)
           modifiedFile = Helper::CredentialsRepo.new(repo).set_credential(key, params.fetch(:value))
 
@@ -20,7 +20,7 @@ module Fastlane
             params[:git_branch],
             [modifiedFile]
           )
-        }
+        end
       end
 
       def self.description

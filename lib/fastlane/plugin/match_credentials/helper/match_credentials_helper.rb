@@ -9,9 +9,12 @@ module Fastlane
     class MatchCredentialsHelper
       def self.runWithRepo(params)
         return if !block_given?
-        params.load_configuration_file("Matchfile")
+
+        load_matchfile(params)
+
         # symentis: Clear GIT_TEMPLATE_DIR env var so the symentis hooks are not installed
         ENV.delete("GIT_TEMPLATE_DIR")
+
         decrypted_repo = Match::GitHelper.clone(params.fetch(:git_url),
                                                 params.fetch(:shallow_clone),
                                                 branch: params.fetch(:git_branch),
@@ -23,6 +26,15 @@ module Fastlane
 
         FileUtils.rm_rf(decrypted_repo)
         return return_value
+      end
+
+      def self.load_matchfile(intoParams) 
+        matchfile = FastlaneCore::Configuration.create(Match::Options.available_options, {})
+        matchfile.load_configuration_file("Matchfile")
+        intoParams.available_options.each do |o|
+          next if !matchfile.available_options.collect(&:key).include?(o.key)
+          intoParams[o.key] = matchfile[o.key]
+        end
       end
     end
   end

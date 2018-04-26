@@ -6,7 +6,6 @@ module Fastlane
       def iterate(source_path)
         Dir[File.join(source_path, "**", "*.{credential}")].each do |path|
           next if File.directory?(path)
-          print(path)
           yield(path)
         end
       end

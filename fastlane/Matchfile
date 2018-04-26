@@ -1,1 +1,2 @@
 git_url("https://github.symentis.com/symentis/apple-distribution.git")
+type("development")
