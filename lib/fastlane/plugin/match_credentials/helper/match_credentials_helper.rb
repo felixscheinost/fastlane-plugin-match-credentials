@@ -12,19 +12,16 @@ module Fastlane
 
         load_matchfile(params)
 
-        # symentis: Clear GIT_TEMPLATE_DIR env var so the symentis hooks are not installed
-        ENV.delete("GIT_TEMPLATE_DIR")
-
         decrypted_repo = Match::GitHelper.clone(params.fetch(:git_url),
                                                 params.fetch(:shallow_clone),
                                                 branch: params.fetch(:git_branch),
                                                 clone_branch_directly: params.fetch(:clone_branch_directly))
-
         Helper::CredentialsEncrypt.new.decrypt_repo(path: decrypted_repo, git_url: params[:git_url])
 
         return_value = yield(params, decrypted_repo)
-
         FileUtils.rm_rf(decrypted_repo)
+        # Workaround, force GitHelper to clone again so that we can delete the directory
+        Match::GitHelper.class_exec { @dir = nil }
         return return_value
       end
 
