@@ -13,6 +13,6 @@ lane :build do
     ENV.delete("GIT_TEMPLATE_DIR")
 	crashlytics_api_token = match_credentials(key: "crashlytics_api_token")
 	crashlytics_build_secret = match_credentials(key: "crashlytics_build_secret")
-	puts("API token:", crashlytics_api_token)
-	puts("Build secret:", match_credentials(key: "crashlytics_build_secret"))
+	puts("API token:" + crashlytics_api_token)
+	puts("Build secret:" + crashlytics_build_secret)
 end
