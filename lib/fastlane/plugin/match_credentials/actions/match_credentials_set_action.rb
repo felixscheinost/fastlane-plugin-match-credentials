@@ -15,7 +15,7 @@ module Fastlane
             working_directory: repo.working_directory
           ).encrypt_files
 
-          repo.upload_files([modifiedFile], "[fastlane][match_credentials] Set credential '#{key}'")
+          repo.upload_files(files_to_upload: [modifiedFile], custom_message: "[fastlane][match_credentials] Set credential '#{key}'")
         end
       end
 
