@@ -39,7 +39,7 @@ module Fastlane
         )
         encryption.decrypt_files if encryption
 
-        return_value = yield(params, storage.working_directory)
+        return_value = yield(params, storage)
 
         FileUtils.rm_rf(storage.working_directory)
 

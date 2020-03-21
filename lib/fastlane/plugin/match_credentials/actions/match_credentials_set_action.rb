@@ -7,21 +7,15 @@ module Fastlane
       def self.run(params)
         Helper::MatchCredentialsHelper.runWithRepo(params) do |params, repo|
           key = params.fetch(:key)
-          modifiedFile = Helper::CredentialsRepo.new(repo).set_credential(key, params.fetch(:value))
+          modifiedFile = Helper::CredentialsRepo.new(repo.working_directory).set_credential(key, params.fetch(:value))
 
           # need to manually encrypt because GitHelper and Encrypt only encrypt .cer .p12 and .mobileprovision
           Helper::CredentialsEncrypt.new(
             keychain_name: params[:git_url],
-            working_directory: repo
+            working_directory: repo.working_directory
           ).encrypt_files
 
-          Match::GitHelper.commit_changes(
-            repo,
-            "[fastlane][match_credentials] Set credential '#{key}'",
-            params[:git_url],
-            params[:git_branch],
-            [modifiedFile]
-          )
+          repo.upload_files([modifiedFile], "[fastlane][match_credentials] Set credential '#{key}'")
         end
       end
 
