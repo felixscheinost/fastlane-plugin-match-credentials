@@ -1,7 +1,6 @@
 require 'fastlane/action'
 require_relative '../helper/match_credentials_helper'
-require_relative '../helper/options'
-
+require_relative '../helper/options' 
 module Fastlane
   module Actions
     class MatchCredentialsSetAction < Action
@@ -11,7 +10,10 @@ module Fastlane
           modifiedFile = Helper::CredentialsRepo.new(repo).set_credential(key, params.fetch(:value))
 
           # need to manually encrypt because GitHelper and Encrypt only encrypt .cer .p12 and .mobileprovision
-          Helper::CredentialsEncrypt.new.encrypt_repo(path: repo, git_url: params[:git_url])
+          Helper::CredentialsEncrypt.new(
+            keychain_name: params[:git_url],
+            working_directory: repo
+          ).encrypt_files
 
           Match::GitHelper.commit_changes(
             repo,
