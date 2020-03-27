@@ -47,7 +47,9 @@ module Fastlane
       end
 
       def self.load_matchfile(into_params)
-        into_params.load_configuration_file("Matchfile")
+        matchfile = FastlaneCore::Configuration.create(Match::Options.available_options, {})
+        matchfile.load_configuration_file("Matchfile")
+        into_params.config_file_options = into_params.config_file_options.merge(matchfile.config_file_options)
       end
     end
   end
