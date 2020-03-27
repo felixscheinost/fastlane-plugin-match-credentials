@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-match_credentials'
   spec.version       = Fastlane::MatchCredentials::VERSION
   spec.author        = 'Felix Scheinost'
-  spec.email         = 'fesc@symentis.com'
+  spec.email         = 'felix.scheinost@posteo.de'
 
   spec.summary       = 'Store credentials in the match git repository'
   # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-match_credentials"
