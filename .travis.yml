@@ -1,7 +1,7 @@
 os: osx # enable this if you need macOS support
 language: nix
 script:
-  - rm nix/Gemfile nix/Gemfile.lock
+  - rm -r nix/gem
   - nix-shell -p ruby --command 'bundle update'
   - ./bundix
   - nix-shell --command 'rake'
