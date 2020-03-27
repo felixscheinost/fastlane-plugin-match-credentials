@@ -48,7 +48,6 @@ Require/MissingRequireStatement:
   - "**/Rakefile"
   - fastlane/**/*
   - supply/**/*
-  - nix/**/*
 Layout/IndentHash:
   Enabled: false
 Layout/AlignHash:
@@ -130,6 +129,7 @@ AllCops:
   - "**/lib/assets/custom_action_template.rb"
   - "./vendor/**/*"
   - "**/lib/assets/DefaultFastfileTemplate"
+  - "nix/**/*"
 Style/FileName:
   Exclude:
   - "**/Dangerfile"
