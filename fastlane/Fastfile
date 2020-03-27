@@ -2,17 +2,17 @@
 # $ bundle exec fastlane set_credential
 # You will be asked for the key/value interactively
 lane :set_credential do
-	# symentis: Clear GIT_TEMPLATE_DIR env var so the symentis hooks are not installed
-    ENV.delete("GIT_TEMPLATE_DIR")
-	match_credentials_set
+  # symentis: Clear GIT_TEMPLATE_DIR env var so the symentis hooks are not installed
+  ENV.delete("GIT_TEMPLATE_DIR")
+  match_credentials_set
 end
 
 # In your build lane you would get your build secrets like this:
 lane :build do
-	# symentis: Clear GIT_TEMPLATE_DIR env var so the symentis hooks are not installed
-    ENV.delete("GIT_TEMPLATE_DIR")
-	crashlytics_api_token = match_credentials(key: "crashlytics_api_token")
-	crashlytics_build_secret = match_credentials(key: "crashlytics_build_secret")
-	puts("API token:" + crashlytics_api_token)
-	puts("Build secret:" + crashlytics_build_secret)
+  # symentis: Clear GIT_TEMPLATE_DIR env var so the symentis hooks are not installed
+  ENV.delete("GIT_TEMPLATE_DIR")
+  crashlytics_api_token = match_credentials(key: "crashlytics_api_token")
+  crashlytics_build_secret = match_credentials(key: "crashlytics_build_secret")
+  puts("API token:" + crashlytics_api_token)
+  puts("Build secret:" + crashlytics_build_secret)
 end

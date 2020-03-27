@@ -1,13 +1,13 @@
 require 'fastlane/action'
 require_relative '../helper/match_credentials_helper'
-require_relative '../helper/options' 
+require_relative '../helper/options'
 module Fastlane
   module Actions
     class MatchCredentialsSetAction < Action
       def self.run(params)
-        Helper::MatchCredentialsHelper.runWithRepo(params) do |params, repo|
+        Helper::MatchCredentialsHelper.run_with_repo(params) do |repo|
           key = params.fetch(:key)
-          modifiedFile = Helper::CredentialsRepo.new(repo.working_directory).set_credential(key, params.fetch(:value))
+          modified_file = Helper::CredentialsRepo.new(repo.working_directory).set_credential(key, params.fetch(:value))
 
           # need to manually encrypt because GitHelper and Encrypt only encrypt .cer .p12 and .mobileprovision
           Helper::CredentialsEncrypt.new(
@@ -15,7 +15,7 @@ module Fastlane
             working_directory: repo.working_directory
           ).encrypt_files
 
-          repo.upload_files(files_to_upload: [modifiedFile], custom_message: "[fastlane][match_credentials] Set credential '#{key}'")
+          repo.upload_files(files_to_upload: [modified_file], custom_message: "[fastlane][match_credentials] Set credential '#{key}'")
         end
       end
 
@@ -32,13 +32,13 @@ module Fastlane
       end
 
       def self.available_options
-        Helper::MatchCredentialsOptions.shared_options() +
+        Helper::MatchCredentialsOptions.shared_options +
           [
             FastlaneCore::ConfigItem.new(key: :value,
                             env_name: "MATCH_CREDENTIALS_VALUE",
                             description: "The value to set",
                             optional: false,
-                            type: String),
+                            type: String)
           ]
       end
 

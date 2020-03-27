@@ -8,12 +8,12 @@ module Fastlane
     class CredentialsRepo
       def initialize(repo)
         @repo = File.join(repo, "credentials")
-        FileUtils.mkdir_p @repo
+        FileUtils.mkdir_p(@repo)
       end
 
       def get_credential(key)
         path = File.join(@repo, key + ".credential")
-        if !File.exists?(path) then
+        unless File.exist?(path)
           UI.user_error!("No such key '#{key}' in the credentials repository")
         end
         File.read(path)
@@ -25,6 +25,5 @@ module Fastlane
         return path
       end
     end
-
   end
 end

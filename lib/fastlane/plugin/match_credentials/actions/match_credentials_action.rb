@@ -6,7 +6,7 @@ module Fastlane
   module Actions
     class MatchCredentialsAction < Action
       def self.run(params)
-        Helper::MatchCredentialsHelper.runWithRepo(params) do |params, repo|
+        Helper::MatchCredentialsHelper.run_with_repo(params) do |repo|
           repo = Helper::CredentialsRepo.new(repo.working_directory)
           repo.get_credential(params.fetch(:key))
         end
