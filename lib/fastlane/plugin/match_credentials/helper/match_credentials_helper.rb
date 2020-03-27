@@ -49,8 +49,9 @@ module Fastlane
       def self.load_matchfile(into_params)
         matchfile = FastlaneCore::Configuration.create(Match::Options.available_options, {})
         matchfile.load_configuration_file("Matchfile")
+        matchfile_options = matchfile.available_options.collect(&:key)
         into_params.available_options.each do |o|
-          next unless matchfile.available_options.collect(&:key).include?(o.key)
+          next unless matchfile_options.include?(o.key)
           into_params[o.key] = matchfile[o.key]
         end
       end
