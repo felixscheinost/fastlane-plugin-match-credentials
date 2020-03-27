@@ -48,6 +48,7 @@ Require/MissingRequireStatement:
   - "**/Rakefile"
   - fastlane/**/*
   - supply/**/*
+  - nix/**/*
 Layout/IndentHash:
   Enabled: false
 Layout/AlignHash:
